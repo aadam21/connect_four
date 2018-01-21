@@ -42,9 +42,9 @@ module ConnectFour
             return piece if (column <= (@columns - 4)) && [piece, @cells[column + 1][row],
                                                            @cells[column + 2][row],
                                                            @cells[column + 3][row]].uniq.length == 1
-            return piece if (r <= (@rows - 4)) && (column <= (@columns - 4)) && [piece, @cells[column + 1][row + 1],
+            return piece if (row <= (@rows - 4)) && (column <= (@columns - 4)) && [piece, @cells[column + 1][row + 1],
                                                                                         @cells[column + 2][row + 2], @cells[column + 3][row + 3]].uniq.length == 1
-            return piece if (r >= 3) && (column <= (@columns - 4)) && [piece, @cells[column + 1][row - 1], @cells[column + 2][row - 2], @cells[column + 3][row - 3]].uniq.length == 1
+            return piece if (row >= 3) && (column <= (@columns - 4)) && [piece, @cells[column + 1][row - 1], @cells[column + 2][row - 2], @cells[column + 3][row - 3]].uniq.length == 1
           end
         end
       end
@@ -70,6 +70,7 @@ module ConnectFour
         else
           scores[column] = 0
         end
+        scores
       end
     end
 
