@@ -30,6 +30,10 @@ module ConnectFour
       it "does not allow a play out of bounds" do
         expect(board.play(piece: "X", column: 10)).to be false
       end
+
+      it "does not allow a play in a full column" do
+        # TODO: Work on a good test for this *** `expect(board.full_column?(6)).to be false`
+      end
     end
   end
 end
