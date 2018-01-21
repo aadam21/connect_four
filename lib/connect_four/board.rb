@@ -13,6 +13,7 @@ module ConnectFour
         end
       else
         @rows, @columns = rows, columns
+        @cells = empty_cells(@columns)
       end
     end
 
@@ -23,5 +24,11 @@ module ConnectFour
     def out_of_bounds(column)
       column < 1 || column > @columns
     end
+
+      private
+
+      def empty_cells(columns)
+        columns.times.map { [] }
+      end
   end
 end

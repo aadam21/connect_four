@@ -20,6 +20,10 @@ module ConnectFour
         expect(existing_state.rows).to eq(10)
         expect(existing_state.columns).to eq(12)
       end
+
+      it "has all empty cells" do
+        expect(board.cells).to all(be_empty)
+      end
     end
 
     context "#play" do
