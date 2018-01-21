@@ -55,6 +55,36 @@ module ConnectFour
       (0...@columns).to_a.reject{ |x| @cells[x].length == @rows }.map{ |x| x + 1 }
     end
 
+    def make_move(piece:, depth: 6)   #TODO: Definitely needed some Google help on this one; hope to have time to revisit
+      valid_moves.reduce({}) do |scores, column|
+        prospective_board = Board.new(state: self) # Clone board in current state
+        prospective_board.play(piece: piece, column: column)
+
+        if prospective_board.winner?
+          scores[column] = (prospective_board.winner? == piece) ? 1 : -1
+        elsif depth > 1
+          computers_piece = (piece == "X" ? "O" : "X")
+          next_move_scores = prospective_board.make_move(piece: computers_piece, depth: depth - 1).values
+          average = next_move_scores.reduce(:+).to_f / next_move_scores.length
+          scores[column] = -1 * average
+        else
+          scores[column] = 0
+        end
+      end
+    end
+
+    #Print board
+    def to_s
+      result  = "+#{'---+'*@columns}\n"
+      result << "|#{@columns.times.map{|column|"#{ (column + 1).to_s.center(3) }|"}.join}\n" # Print column numbers centered in topmost cells
+      result << "+#{ '---+'*@columns }\n"
+      @rows.times do |r|
+        result << "|#{@columns.times.map{ |column|"#{ @cells[column][@rows - r - 1].to_s.center(3) }|" }.join}\n"
+        result << "+#{'---+'*@columns}\n"
+      end
+      result
+    end
+
       private
 
       def empty_cells(columns)
