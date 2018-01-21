@@ -38,7 +38,7 @@ module ConnectFour
           unless (piece = @cells[column][row]).nil?
             return piece if (row <= (@rows - 4)) && [piece, @cells[column][row + 1],
                                                      @cells[column][row + 2],
-                                                     @cells[column][row + 3].uniq.length == 1
+                                                     @cells[column][row + 3]].uniq.length == 1
             return piece if (column <= (@columns - 4)) && [piece, @cells[column + 1][row],
                                                            @cells[column + 2][row],
                                                            @cells[column + 3][row]].uniq.length == 1
