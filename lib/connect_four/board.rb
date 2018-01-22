@@ -18,10 +18,16 @@ module ConnectFour
     end
 
     def play(piece:, column:)
-      return false if out_of_bounds(column)
-      return false if full_column?(column)
-      return if winner?
-      @cells[column - 1].push piece
+      case
+        when out_of_bounds(column)
+          false
+        when full_column?(column)
+          false
+        when winner?
+          false
+        else
+          @cells[column -1 ].push piece
+      end
     end
 
     def out_of_bounds(column)
@@ -55,7 +61,7 @@ module ConnectFour
       (0...@columns).to_a.reject{ |x| @cells[x].length == @rows }.map{ |x| x + 1 }
     end
 
-    def make_move(piece:, depth: 6)   #TODO: Definitely needed some Google help on this one; hope to have time to revisit
+    def make_move(piece:, depth: 6)   #TODO: Definitely needed some Google help on this one; want to revisit and dissect more
       valid_moves.reduce({}) do |scores, column|
         prospective_board = Board.new(state: self) # Clone board in current state
         prospective_board.play(piece: piece, column: column)

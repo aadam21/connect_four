@@ -2,9 +2,6 @@
 require "bundler/setup"
 require_relative "connect_four/board.rb"
 
-# module ConnectFour
-#   # Your code goes here...
-# end
 include ConnectFour
 
 board = Board.new
@@ -36,6 +33,8 @@ until board.valid_moves.empty? || board.winner?
   player = (player == "X" ? "O" : "X")
 end
 
+print `clear`
+
 if board.winner?
   if board.winner? == "O"
     puts "'#{board.winner?}' clobbered you!"
@@ -45,4 +44,5 @@ if board.winner?
 else
   puts "It's a tie."
 end
+
 puts board
